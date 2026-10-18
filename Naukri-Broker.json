@@ -1,0 +1,420 @@
+{
+  "name": "Naukri-Broker",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "43a55512-e17d-4ca1-b4e1-98fbbff1f223",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "https://api.adzuna.com/v1/api/jobs/in/search/1",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "app_id",
+              "value": "c94e0084"
+            },
+            {
+              "name": "app_key",
+              "value": "91909e61c7ad374462a7fd5fe6bc9fb5"
+            },
+            {
+              "name": "what",
+              "value": "Software Engineer"
+            },
+            {
+              "name": "where"
+            },
+            {
+              "name": "results_per_page",
+              "value": "5"
+            },
+            {
+              "name": "sort_by",
+              "value": "date"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "2dc1c238-506d-43c3-8dbe-5d0eb9e7d797",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "results",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        416,
+        0
+      ],
+      "id": "05fbdd14-bb82-4764-8f45-988a3723f766",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Resume: [PRUTHVIK R\nBengaluru, Karnataka  —  +91 77957 44015  —  pruthvikshetty11@gmail.com  —  github.com/Pruthvik1111  —  linkedin.com/in/pruthvik-r\nABOUT\nFinal-year AI & ML undergraduate with hands-on experience building AI-powered applications, voice authentication systems, and fraud \ndetection pipelines. Proficient in Python, NLP, LLMs, and modern AI frameworks. Actively developing agentic and cloud-native AI solutions \nfocused on real-world impact.\nSKILLS\nLanguages: Python, SQL, Java\nAI / ML: Machine Learning, Deep Learning, NLP, RAG, Vector Search, Prompt Engineering, AI Agents\nFrameworks: Scikit-Learn, TensorFlow, PyTorch, LangChain\nGenAI: OpenAI APIs, Ollama, Agentic Workflows, LLM Applications\nTools: Pandas, NumPy, Power BI, Tableau, Git, GitHub, Linux, VS Code\nEXPERIENCE\nPython Fullstack Developer Intern — KodNest, Bengaluru\n● Developed and maintained Python-based fullstack web applications using Django and REST APIs.\n● Collaborated on backend logic, database design, and frontend integration across real-world project workflows.\n● Practised Git-based version control, code reviews, and agile development workflows in a team environment.\nInternal Coordinator Intern — Instawork\n2025 – 2026\nFeb 2026 – Apr 2026\n● Coordinated daily operations for a pod of 100+ field data collectors, providing remote support and resolving technical issues to keep task \nexecution on track.\n● Guided field teams on task execution and quality requirements, maintaining consistent communication across a distributed workforce via \nWhatsApp.\n● Tracked task completion and validated updates in Google Sheets, maintaining accurate operational records for 100+ contributors.\n● Built a Python automation script that cut manual Google Sheets reporting effort by ~50%, streamlining daily operational tracking.\nPROJECTS\nAI Voice Assistant with Speaker Authentication\nPython • Ollama • Speech Recognition • PySide6 • NLP • MFCC\n● Built an offline AI assistant supporting voice-driven tasks — web search, calls, media, and messaging.\n● Developed MFCC-based speaker authentication pipeline achieving 80–85% accuracy in controlled testing.\n● Reduced latency via local LLM inference using Ollama; decoupled audio, NLP, and UI with modular architecture.\nAgentic Web Automation Assistant [Building Now]\nPython • Playwright • Browser Automation • LLM Agents\n● Designing an AI agent that autonomously navigates websites and completes multi-step tasks via LLM reasoning.\n● Building browser automation workflows for data retrieval, form filling, and task execution using Playwright.\n● Implemented dynamic tool selection and planning loop; modular design supports future API integrations.\nReal-Time Fraud Detection System\nPython • Scikit-Learn • Anomaly Detection • Feature Engineering\n● Built an end-to-end ML pipeline on 5,000+ transaction records for real-time fraud detection.\n● Applied anomaly detection and adaptive learning to capture evolving fraud patterns and reduce false positives.\n● Evaluated models using precision, recall, and F1-score; iterated on feature engineering to improve accuracy.\nPDF RAG Chatbot with Persistent Memory\nPython • LangChain • ChromaDB • Ollama • SQLite • Streamlit\ngithub.com/Pruthvik1111/pdf-rag-chatbot-memory\nJan 2025\nJan 2026 – Present\nJan 2026\nMay 2026\n● Built a fully offline RAG chatbot that answers natural-language questions from uploaded PDFs using local LLM inference via Ollama.\n● Implemented semantic search over document chunks using Nomic Embed embeddings and ChromaDB for accurate retrieval.\n● Designed persistent, multi-turn conversational memory using SQLite, enabling the chatbot to recall prior context across sessions.\nACHIEVEMENTS\n● Employee of the Month, Instawork (March 2026) — recognized for coordination reliability and operational impact.\n● Best Project Award, Sri Krishna Institute of Technology — for the Real-Time Fraud Detection System.\nEDUCATION\nB.E. in Artificial Intelligence & Machine Learning\nSri Krishna Institute of Technology, Bengaluru | CGPA: 7.40 / 10.0\nCOURSES\n2022 – 2026\nArtificial Intelligence – Infosys Springboard\nMachine Learning for Core Engineering – Infosys Springboar]\n\n   Job Title: {{ $json.title }}\n   Company: {{ $json.company.display_name }}\n   Description: {{ $json.description }}\n\n   Rate how well this job fits the resume from 0-100 and give one short reason.\n   Respond ONLY as JSON: {\"score\": number, \"reason\": \"string\"}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        656,
+        0
+      ],
+      "id": "7d81448c-c6b6-4e33-9209-778ca502837c",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5cbf8bf3-0601-4c5e-b7fd-ffe11e6a5c64",
+              "name": "Score",
+              "value": "={{ JSON.parse($json.output.replace(/```json|```/g, '').trim()).score }}",
+              "type": "number"
+            },
+            {
+              "id": "0ae94631-6406-479e-9502-80f5b5d4236b",
+              "name": "reason",
+              "value": "={{ JSON.parse($json.output.replace(/```json|```/g, '').trim()).reason }}",
+              "type": "string"
+            },
+            {
+              "id": "32e8af89-6b25-4e89-ac30-00f785757ed4",
+              "name": "company",
+              "value": "={{ $('Split Out').item.json.company.display_name }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1024,
+        0
+      ],
+      "id": "fd1a8e32-9fbf-4ab9-9796-03ce4ad3468b",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "13a0246a-75a6-4bc1-be49-951fd398f40e",
+              "leftValue": "={{ $json.Score }}",
+              "rightValue": 70,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1264,
+        0
+      ],
+      "id": "38a20ba6-95a5-470a-956d-0e66ae5f9702",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1oyQk2D6ou4JhAzTWPzTNEGzHya4qPNvr9erkOzjU98w/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Sheet1",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Company": "={{ $('Split Out').item.json.company.display_name }}",
+            "Job Role": "={{ $('Split Out').item.json.title }}",
+            "Job Posted": "={{ $('Split Out').item.json.created }}",
+            "Application link": "={{ $('Split Out').item.json.redirect_url }}",
+            "Status": "Not Applied"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Company",
+              "displayName": "Company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Job Role",
+              "displayName": "Job Role",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Job Posted",
+              "displayName": "Job Posted",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Application link",
+              "displayName": "Application link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1520,
+        -160
+      ],
+      "id": "a1fb71ec-62bf-4631-9215-bc37a200560f",
+      "name": "Append row in sheet1",
+      "alwaysOutputData": true,
+      "executeOnce": false,
+      "retryOnFail": false,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "3ckh6O0PAJmOF4rA",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "ed5a7c77-53e8-41e8-9a34-6408b4653e5d",
+              "leftValue": "={{ $items().length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2336,
+        0
+      ],
+      "id": "8dbfce4a-6abf-4799-84ab-b348f288a898",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-3.1-flash-lite",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        528,
+        208
+      ],
+      "id": "9c7b9f16-34a0-4bd0-a47a-8b1b5e8544f4",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "FVfsNbNQDRXQb7fE",
+          "name": "Google Gemini(PaLM) Api account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Append row in sheet1": {
+      "main": [
+        []
+      ]
+    },
+    "If2": {
+      "main": [
+        []
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "966e3ab4-a4d1-4e1d-9b8a-6225b3b80c37",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b23717447376d9f6ed6a55e77ba3b9c1a4a71509a0d46ff392d6de946306318e"
+  },
+  "nodeGroups": [],
+  "id": "utxpGu9cBife0cvB",
+  "tags": []
+}
